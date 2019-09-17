@@ -14,12 +14,10 @@ abstract class Node(val name: String) {
         case head :: Nil =>
           File(head)
         case head :: tail =>
-          val nds = nodes
-          val nn = nds.find(_.name == head)
-          nn match {
+          nodes.find(_.name == head) match {
             case Some(d) =>
               d.add(tail.mkString("/"))
-            case _ =>
+            case None =>
               Dir(head, List()).add(tail.mkString("/"))
           }
         case _ => throw new Exception("No node")
